@@ -1,20 +1,20 @@
 
 //impoorting express
 const express = require('express');
+
 //importing morgan
 const morgan = require('morgan');
+const app = express();
 
 var path = require("path"); //require path module
-
-
-const app = express();
 //passing morgan middle to invoke logging with morgan
 app.use(morgan('common'));
 
+//sets static website for public folder
 app.use('/documentation', express.static('public'));
 __dirname = path.resolve(path.dirname(''));
 
-
+//array of my top movies
 let topMovies = [
 {title:'Fight club'},
 {title:'Lord of the rings '},
@@ -28,6 +28,9 @@ let topMovies = [
 {title:'Oldboy '}
 ];
 
+
+//all endpoints
+
 app.get('/', (req, res) => {
   res.send('These are my top movies')
 });
@@ -36,11 +39,42 @@ app.get('/documentation', (req, res) => {
     res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-
-app.get('/movies', (req, res) => {
-
+app.get('/topmovies', (req, res) => {
   res.json(topMovies)
 });
+
+app.get('/movies', (req, res) => {
+   res.send('Successful GET request returning data on ALL movies');
+ });
+
+ app.get('/movies/data/title', (req, res) => {
+    res.send('Successful GET request returning all movie titles');
+  });
+
+  app.get('/movies/data/genre', (req, res) => {
+     res.send('Successful GET request returning all movie genres');
+   });
+   app.get('/user', (req, res) => {
+      res.send('Successful GET request returning data on ALL users');
+    });
+    app.post('/user/register', (req, res) => {
+       res.send('Successful POST request adding new user by ID');
+     });
+   app.delete('/user/register/deregister', (req, res) => {
+      res.send('Successful DELETE request deregister by user ID');
+    });
+
+     app.put('/user/info/update', (req, res) => {
+        res.send('Successful PUT request updating data for user info');
+      });
+
+      app.delete('/user/movie/remove', (req, res) => {
+         res.send('Successful DELETE request removing movie from user');
+       });
+
+       app.post('/user/movie/add', (req, res) => {
+          res.send('Successful POST request adding movie from user');
+        });
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
