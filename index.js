@@ -4,6 +4,9 @@ const express = require('express');
 //importing morgan
 const morgan = require('morgan');
 
+var path = require("path"); //require path module
+
+
 const app = express();
 //passing morgan middle to invoke logging with morgan
 app.use(morgan('common'));
