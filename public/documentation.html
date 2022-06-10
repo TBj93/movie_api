@@ -13,62 +13,167 @@
       <th>URL</th>   
       <th>Response</th>    
     </tr>
+
     <tr>
-      <td>Alfreds Futterkiste</td>
-      <td>/documentation</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <td>Centro comercial Moctezuma</td>
+      <td>GET movies</td>
       <td>/movies</td>
-      <td>Mexico</td>
+      <td>A JSon object holding all movies</td>
     </tr>
     <tr>
-      <td>Centro comercial Moctezuma</td>
+      <td>GET all movie data</td>
       <td>/movies/data</td>
-      <td>Mexico</td>
+      <td>A JSon object holding all movie data</td>
     </tr>
     <tr>
-      <td>Centro comercial Moctezuma</td>
+      <td>GET all movie genre</td>
        <td>/movies/data/genre</td>
-      <td>Mexico</td>
+      <td>A JSon object holding all movie data</td>
     </tr>
     <tr>
-      <td>Centro comercial Moctezuma</td>
+      <td>GET all movie titles</td>
        <td>/movies/data/title</td>
-      <td>Mexico</td>
+      <td>A JSon object holding all movie titles</td>
     </tr>
     <tr>
-      <td>Centro comercial Moctezuma</td>
+      <td>GET all movie directors</td>
        <td>/movies/data/director</td>
-      <td>Mexico</td>
+      <td>A JSon object holding all movie directors</td>
     </tr>
     <tr>
-      <td>Centro comercial Moctezuma</td>
+      <td>Post new user in register</td>
        <td>/user/register</td>
-      <td>Mexico</td>
+      <td>A JSon object holding new users</td>
     </tr>
     <tr>
-    <td>Centro comercial Moctezuma</td>
+    <td>Put new user info</td>
      <td>/user/info/update</td>
-    <td>Mexico</td>
+    <td>A Json object holding all added data</td>
   </tr>
   <tr>
-  <td>Centro comercial Moctezuma</td>
+  <td>Post new movie from user</td>
    <td>/user/movie/add</td>
-  <td>Mexico</td>
+  <td>A Json object holding new movie from user</td>
 </tr>
 <tr>
-<td>Centro comercial Moctezuma</td>
+<td>Delete movie from user by user</td>
  <td>/user/movie/remove</td>
-<td>Mexico</td>
+<td>A Json object holding an emptied object</td>
 </tr>
 <tr>
-<td>Centro comercial Moctezuma</td>
+<td>Delete user </td>
  <td>/user/register/deregister</td>
-<td>Mexico</td>
+<td>A Json object holding emptied list of users</td>
 </tr>
     
   </table>
+  <h2>Ressource URL </h2>
+  <p> http://localhost:8080/movies</p>
+  
+  <br>
+  <table>
+  <tr>
+    <th>Endpoint data return</th>   
+    <th>Endpoint URL</th>   
+    <th>Method type</th>    
+    <th>Parameters in URL</th>   
+    <th>Expected data format in body</th>   
+    <th>Format of response data</th>   
+  </tr>
+  <tr>
+  <!-- Endpoint data return   -->
+   <td><ul>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+  </ul> </td>
+  
+  <!-- Endpoint URL -->
+  
+   <td><ul>
+  <li>/movies</li>
+  <li>/movies/data </li>
+  <li>	/movies/data/title</li>
+    <li>	/movies/data/genre</li>
+    <li>	/movies/data/director</li>
+    <li>	/user/register</li>
+    <li>  /user/register/deregister     </li>
+    <li>	 /user/movie/remove</li>
+    <li>	/user/movie/add</li>
+        <li>		/user/info/update</li>
+    
+</ul></td>
+
+  <!-- Method type  -->
+
+   <td><ul>
+     <li>GET</li>
+     <li> GET</li>
+     <li>	GET</li>
+       <li>	GET</li>
+       <li>	GET</li>
+       <li>	POST</li>
+       <li>  DELETE    </li>
+       <li>	 DELETE</li>
+       <li>	POST</li>
+     <li>	PUT </li>
+</ul> </td>
+
+  <!-- Parameters in URL  -->
+
+   <td><ul>
+     <li>:movie</li>
+     <li> :user</li>
+     <li>	:title</li>
+       <li>	:genre</li>
+       <li>	:director</li>
+       <li>	register[ID]</li>
+       <li>  deregister[ID]     </li>
+       <li>	 :remove</li>
+       <li>	:add</li>
+     <li>	update[ID] </li>
+</ul> </td>
+
+<!-- Expected data format in body -->
+
+   <td><ul>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+     <li>JSON</li>
+</ul> </td>
+<!-- Format of response data  -->
+
+   <td><ul>
+  <li>JSON</li>
+  <li>JSON</li>
+  <li>JSON</li>
+  <li>JSON</li>
+  <li>JSON</li>
+  <li>JSON</li>
+  <li>JSON</li>
+  <li>JSON</li>
+  <li>JSON</li>
+    <li>JSON</li>
+</ul> </td>
+
+  
+  </tr>
+</table>
+  
+  
+  
 </body>
 </html>
