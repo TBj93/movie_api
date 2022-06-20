@@ -9,8 +9,35 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 
+//importing models.js
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+
+//Set up default mongoose connection
+var mongoDB = 'mongodb://127.0.0.1/dbmovies';
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+
+
+
 
 var path = require("path"); //require path module
 //passing morgan middle to invoke logging with morgan
@@ -50,7 +77,18 @@ app.get('/topmovies', (req, res) => {
 });
 
 app.get('/movies', (req, res) => {
-   res.send('Successful GET request returning data on ALL movies');
+  // res.send('Successful GET request returning data on ALL movies');
+
+ Movies.find()
+ .then((movies) => {
+  res.json(movies)
+})
+.catch((error) => {
+  console.error(error);
+  res.status(500).send('Error: ' + error);
+});
+
+
  });
 
  app.get('/movies/data/title', (req, res) => {
@@ -61,7 +99,12 @@ app.get('/movies', (req, res) => {
      res.send('Successful GET request returning all movie genres');
    });
    app.get('/user', (req, res) => {
-      res.send('Successful GET request returning data on ALL users');
+
+    Users.find().then(users => res.json(users));
+     // res.send('Successful GET request returning data on ALL users');
+
+
+
     });
     app.post('/user/register', (req, res) => {
        res.send('Successful POST request adding new user by ID');
