@@ -2,9 +2,15 @@
 //impoorting express
 const express = require('express');
 
+//importing bodyperser
+const bodyParser = require('body-parser');
+
 //importing morgan
 const morgan = require('morgan');
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var path = require("path"); //require path module
 //passing morgan middle to invoke logging with morgan
