@@ -20,50 +20,46 @@
       <td>A JSon object holding all movies</td>
     </tr>
     <tr>
-      <td>GET all movie data</td>
-      <td>/movies/data</td>
-      <td>A JSon object holding all movie data</td>
-    </tr>
-    <tr>
       <td>GET all movie genre</td>
-       <td>/movies/data/genre</td>
-      <td>A JSon object holding all movie data</td>
+       <td>/genre/:Name</td>
+      <td>A JSon object holding all genres by name</td>
     </tr>
     <tr>
       <td>GET all movie titles</td>
-       <td>/movies/data/title</td>
-      <td>A JSon object holding all movie titles</td>
+       <td>/movies/:Title</td>
+      <td>A JSon object holding all movies by title</td>
     </tr>
     <tr>
       <td>GET all movie directors</td>
-       <td>/movies/data/director</td>
-      <td>A JSon object holding all movie directors</td>
+       <td>/director/:Namer</td>
+      <td>A JSon object holding all directors by name</td>
     </tr>
     <tr>
-      <td>Post new user in register</td>
-       <td>/user/register</td>
+      <td>POST new user in register</td>
+       <td>/register/:Username</td>
       <td>A JSon object holding new users</td>
     </tr>
     <tr>
-    <td>Put new user info</td>
-     <td>/user/info/update</td>
+      <td>Delete user </td>
+       <td>/deregister/:Username'</td>
+      <td>A Json object holding emptied list of users</td>
+      </tr>
+    <tr>
+    <td>Put update for user</td>
+     <td>/update/:Username</td>
     <td>A Json object holding all added data</td>
   </tr>
   <tr>
   <td>Post new movie from user</td>
-   <td>/user/movie/add</td>
+   <td>/:Username/add/:movieid</td>
   <td>A Json object holding new movie from user</td>
 </tr>
 <tr>
 <td>Delete movie from user by user</td>
- <td>/user/movie/remove</td>
+ <td>/:Username/remove/:movieid</td>
 <td>A Json object holding an emptied object</td>
 </tr>
-<tr>
-<td>Delete user </td>
- <td>/user/register/deregister</td>
-<td>A Json object holding emptied list of users</td>
-</tr>
+
     
   </table>
   <h2>Ressource URL </h2>
@@ -82,31 +78,30 @@
   <tr>
   <!-- Endpoint data return   -->
    <td><ul>
-     <li>JSON</li>
-     <li>JSON</li>
-     <li>JSON</li>
-     <li>JSON</li>
-     <li>JSON</li>
-     <li>JSON</li>
-     <li>JSON</li>
-     <li>JSON</li>
-     <li>JSON</li>
-     <li>JSON</li>
+     <li>JSON object holding all movies</li>
+     <li>JSON object holding specific title </li>
+     <li>JSON object holding specific genre </li>
+     <li>JSON object holding specific director </li>
+     <li>JSON status and deleted user</li>
+     <li>JSON status and created user</li>
+     <li>JSON updated user</li>
+     <li>JSON updated user</li>
+     <li>JSON updated user</li>
+     <li>JSON updated user</li>
   </ul> </td>
   
   <!-- Endpoint URL -->
   
    <td><ul>
   <li>/movies</li>
-  <li>/movies/data </li>
-  <li>	/movies/data/title</li>
-    <li>	/movies/data/genre</li>
-    <li>	/movies/data/director</li>
-    <li>	/user/register</li>
-    <li>  /user/register/deregister     </li>
-    <li>	 /user/movie/remove</li>
-    <li>	/user/movie/add</li>
-        <li>		/user/info/update</li>
+  <li>	/movies/:Title</li>
+    <li>	/genre/:Name</li>
+    <li>	/director/:Name</li>
+    <li>	/register/:Username</li>
+    <li>  /deregister/:Username     </li>
+    <li>	 /:Username/remove/:movieid</li>
+    <li>	/:Username/add/:movieid</li>
+        <li>		/update/:Username</li>
     
 </ul></td>
 
@@ -114,7 +109,6 @@
 
    <td><ul>
      <li>GET</li>
-     <li> GET</li>
      <li>	GET</li>
        <li>	GET</li>
        <li>	GET</li>
@@ -128,16 +122,15 @@
   <!-- Parameters in URL  -->
 
    <td><ul>
-     <li>:movie</li>
-     <li> :user</li>
-     <li>	:title</li>
-       <li>	:genre</li>
-       <li>	:director</li>
-       <li>	register[ID]</li>
-       <li>  deregister[ID]     </li>
-       <li>	 :remove</li>
-       <li>	:add</li>
-     <li>	update[ID] </li>
+     <li>none</li>
+     <li>	:Title</li>
+       <li>	:Name</li>
+       <li>	:Name</li>
+       <li>	:Username, (Email, Pw, Birthday)</li>
+       <li>  :Username   </li>
+       <li>	 :Username, :ObjectID(movie)</li>
+       <li>	:Username, :ObjectID(movie)</li>
+     <li>	:Username (Email, Pw, Birthday) </li>
 </ul> </td>
 
 <!-- Expected data format in body -->
@@ -152,12 +145,10 @@
      <li>JSON</li>
      <li>JSON</li>
      <li>JSON</li>
-     <li>JSON</li>
 </ul> </td>
 <!-- Format of response data  -->
 
    <td><ul>
-  <li>JSON</li>
   <li>JSON</li>
   <li>JSON</li>
   <li>JSON</li>
