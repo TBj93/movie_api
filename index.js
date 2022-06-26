@@ -58,6 +58,8 @@ app.use('/documentation', express.static('public'));
 __dirname = path.resolve(path.dirname(''));
 
 
+//test
+
 //all endpoints
 
 app.get('/', (req, res) => {
