@@ -13,6 +13,12 @@ const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
+//import cors
+const cors = require('cors');
+app.use(cors());
+
+//import import express validator 
+const { check, validationResult } = require('express-validator');
 
 //Set up default mongoose connection
 var mongoDB = 'mongodb://127.0.0.1/dbmovies';
@@ -136,8 +142,26 @@ app.get('/users/:Username', (req, res) => {
 
 
 
-    app.post('/register/:Username', (req, res) => {
-      // res.send('Successful POST request adding new user by ID');
+    app.post('/register/:Username', 
+    
+    //validate if email, pw, username is valid
+    [
+      check('Username', 'Username is required').isLength({min: 5}),
+      check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+      check('Password', 'Password is required').not().isEmpty(),
+      check('Email', 'Email does not appear to be valid').isEmail()
+    ], (req, res) => {
+
+      let errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+      }
+
+      //hash the request password
+      let hashedPassword = Users.hashPassword(req.body.Password);
+      
+      check('Password', 'Password contains non-alphanumeric characters - not allowed.').is
       Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -146,7 +170,7 @@ app.get('/users/:Username', (req, res) => {
         Users
           .create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -182,14 +206,30 @@ app.get('/users/:Username', (req, res) => {
 
     });
 
-     app.put('/update/:Username', passport.authenticate('jwt', {session:false}), (req, res) => {
-       // res.send('Successful PUT request updating data for user info');
+     app.put('/update/:Username',
+     //validate data
+     [
+      check('Username', 'Username is required').isLength({min: 5}),
+      check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+      check('Password', 'Password is required').not().isEmpty(),
+      check('Email', 'Email does not appear to be valid').isEmail()
+    ],
 
+     passport.authenticate('jwt', {session:false}), (req, res) => {
+
+      let errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+      }
+
+       // hashing updated password
+       let hashedPassword = Users.hashPassword(req.body.Password);
         Users.findOneAndUpdate({ Username: req.params.Username },
            {
              $set: {
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           }
@@ -204,20 +244,7 @@ app.get('/users/:Username', (req, res) => {
           }
         });
       });
-/*
-      app.get('/:Username/movies', (req, res) => {
-        //res.send('Successful GET request reading movies from user');
-        Users.findOne({ Username: req.params.Username.FavoriteMovies })
-        .then((user) => {
-          res.json(user);
-        })
-        .catch((err) => {
-          console.error(err);
-          res.status(500).send('Error: ' + err);
-        });
-      });
 
-      */
 // delete fav move by user by movie id
       app.delete('/:Username/remove/:movieid', passport.authenticate('jwt', {session:false}), (req, res) => {
         Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -236,7 +263,12 @@ app.get('/users/:Username', (req, res) => {
 
        
        //add fav movies to user by movie id
-       app.post('/:Username/add/:movieid', passport.authenticate('jwt', {session:false}), (req, res) => {
+       app.post('/:Username/add/:movieid',
+
+      
+       passport.authenticate('jwt', {session:false}), (req, res) => {
+
+    
         Users.findOneAndUpdate({ Username: req.params.Username }, {
            $push: { FavoriteMovies: req.params.movieid }
          },
