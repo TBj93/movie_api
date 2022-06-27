@@ -20,9 +20,19 @@ app.use(cors());
 //import import express validator 
 const { check, validationResult } = require('express-validator');
 
-//Set up default mongoose connection
+//Set up default mongoose connection /either hosted or local)
+
+var mongoDB = 'mongodb+srv://tim7:geilgeil7@cluster0.gbesj.mongodb.net/myFlixDB?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+
+
+
+
+/*
 var mongoDB = 'mongodb://127.0.0.1/dbmovies';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+*/
+
 
 //Get the default connection
 var db = mongoose.connection;
