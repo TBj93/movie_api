@@ -22,8 +22,7 @@ const { check, validationResult } = require('express-validator');
 
 //Set up default mongoose connection /either hosted or local)
 
-var mongoDB = 'process.env.CONNECTION_URI';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
