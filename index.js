@@ -79,7 +79,7 @@ app.get('/documentation', (req, res) => {
 });
 
 
-app.get('/movies', passport.authenticate('jwt', {session:false}), (req, res) => {
+app.get('/movies', /* passport.authenticate('jwt', {session:false}), */ (req, res) => {
   // res.send('Successful GET request returning data on ALL movies');
 
  Movies.find()
