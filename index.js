@@ -131,12 +131,20 @@ app.get('/movies', /* passport.authenticate('jwt', {session:false}), */ (req, re
       });
    });
 
+   app.get('/director', (req, res) => {
+
+    Directors.find().then(users => res.json(users));
+     // res.send('Successful GET request returning data on ALL users');
+    });
 
    app.get('/users', (req, res) => {
 
     Users.find().then(users => res.json(users));
      // res.send('Successful GET request returning data on ALL users');
     });
+
+
+
 /*
 // Get a user by username
 app.get('/users/:Username', (req, res) => {
