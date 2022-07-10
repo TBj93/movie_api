@@ -131,12 +131,14 @@ app.get('/movies',  passport.authenticate('jwt', {session:false}),  (req, res) =
       });
    });
 
+
+/*
    app.get('/director', (req, res) => {
 
     Directors.find().then(users => res.json(users));
      // res.send('Successful GET request returning data on ALL users');
     });
-/*
+
    app.get('/users', (req, res) => {
 
     Users.find().then(users => res.json(users));
@@ -148,7 +150,7 @@ app.get('/movies',  passport.authenticate('jwt', {session:false}),  (req, res) =
 
 
 // Get a user by username
-app.get('/users/:Username', (req, res) => {
+app.get('/users/:Username',  passport.authenticate('jwt', {session:false}), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
