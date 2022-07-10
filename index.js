@@ -160,7 +160,7 @@ app.get('/users/:Username', (req, res) => {
 
 */
 
-    app.post('/register/:Username', 
+    app.post('/register', 
     
     //validate if email, pw, username is valid
     [
