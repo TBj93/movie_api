@@ -9,69 +9,80 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 
-uuid = require('uuid');
-
-// Use body-parser middleware function
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 //importing models.js
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
+//import cors
+//choose between general course (seen first option here, but not recommended or recommended version below)
 
 
-const Movies = Models.Movie;
-const Users = Models.User;
-
-
-// Import and use CORS, set allowed origins
 const cors = require('cors');
+app.use(cors({
+  origin: '*'
+}));
 
-/* ******* UNCOMMENT TO SET CORS POLICY!! *******
-************************************************
-//let allowedOrigins = ['http://localhost:8000', 'http://testsite.com', 'https://herokuapp.com', 'http://localhost:1234'];
+
+/*
+const cors = require('cors');
+let allowedOrigins =  ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://my-awesome-site123.netlify.app'];
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) { // origin is not included in list of allowedOrigins
-      let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
       return callback(new Error(message), false);
     }
     return callback(null, true);
   }
 }));
-************************************************
-******* UNCOMMENT TO SET CORS POLICY *******
+
 */
 
-// DELETE this when uncommenting CORS POLICY!!
-app.use(cors({
-    origin: '*'
-}));
-
-// Import express-validator to validate input fields
+//import import express validator 
 const { check, validationResult } = require('express-validator');
 
-// Import auth.js file
-let auth = require('./auth')(app);
+//Set up default mongoose connection /either hosted or local)
 
-// Require passport module & import passport.js file 
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+/*
+var mongoDB = 'mongodb+srv://tim7:geilgeil7@cluster0.gbesj.mongodb.net/myFlixDB?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+*/
+/*
+var mongoDB = 'mongodb://127.0.0.1/dbmovies';
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+*/
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
+
+const Movies = Models.Movie;
+const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//import auth.js
+app.use(bodyParser.urlencoded({ extended: true }));
+
+let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-/* Connecting to MongoDB Movies */
-// a) Connect to Local DB
-//mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// b) Connect to Hosted DB
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-/**
- * Logs basic request data in terminal using Morgan middleware library
- */
+var path = require("path"); //require path module
+//passing morgan middle to invoke logging with morgan
 app.use(morgan('common'));
-
 
 //sets static website for public folder
 app.use('/documentation', express.static('public'));
@@ -293,6 +304,28 @@ app.get('/users/:Username',  passport.authenticate('jwt', {session:false}), (req
          }
        });
      });
+
+
+     // show user fav movies
+   
+
+
+
+     app.get('users/:Username/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+      Users.findOne({ Username: req.params.Username })
+          .then((user) => {
+              if (user) { // If a user with the corresponding username was found, return user info
+                  res.status(200).json(user.FavoriteMovies);
+              } else {
+                  res.status(400).send('Could not find favorite movies for this user');
+              };
+          })
+          .catch((err) => {
+              console.error(err);
+              res.status(500).send('Error: ' + err);
+          });
+  });
+
 
        
        //add fav movies to user by movie id
