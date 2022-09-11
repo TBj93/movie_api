@@ -16,13 +16,14 @@ const Models = require('./models.js');
 //import cors
 //choose between general course (seen first option here, but not recommended or recommended version below)
 
-/*
+
 const cors = require('cors');
-app.use(cors());
-*/
+app.use(cors({
+  origin: '*'
+}));
 
 
-//recommended cors policies
+/*
 const cors = require('cors');
 let allowedOrigins =  ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://my-awesome-site123.netlify.app'];
 
@@ -37,6 +38,7 @@ app.use(cors({
   }
 }));
 
+*/
 
 //import import express validator 
 const { check, validationResult } = require('express-validator');
@@ -302,6 +304,28 @@ app.get('/users/:Username',  passport.authenticate('jwt', {session:false}), (req
          }
        });
      });
+
+
+     // show user fav movies
+   
+
+
+
+     app.get('users/:Username/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+      Users.findOne({ Username: req.params.Username })
+          .then((user) => {
+              if (user) { // If a user with the corresponding username was found, return user info
+                  res.status(200).json(user.FavoriteMovies);
+              } else {
+                  res.status(400).send('Could not find favorite movies for this user');
+              };
+          })
+          .catch((err) => {
+              console.error(err);
+              res.status(500).send('Error: ' + err);
+          });
+  });
+
 
        
        //add fav movies to user by movie id
