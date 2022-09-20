@@ -311,7 +311,7 @@ app.get('/users/:Username',  passport.authenticate('jwt', {session:false}), (req
 
 
 
-     app.get('users/:Username/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+     app.get('/:Username/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
       Users.findOne({ Username: req.params.Username })
           .then((user) => {
               if (user) { // If a user with the corresponding username was found, return user info
