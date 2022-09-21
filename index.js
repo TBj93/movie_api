@@ -260,7 +260,7 @@ app.get('/users/:Username',  passport.authenticate('jwt', {session:false}), (req
     ]
     ,
 
-   //  passport.authenticate('jwt', {session:false}), 
+    passport.authenticate('jwt', {session:false}), 
    (req, res) => {
 
       let errors = validationResult(req);
