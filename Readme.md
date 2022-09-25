@@ -18,16 +18,16 @@ The app uses Jwt authentication, as well as password hashing.
 Html, Js, Node.js, 
 Packages/dependencies: 
 
-mongoose
-uuid
-jwt
-Cors
-bcrypt
-morgan
-bodyparser
-express
-port
-passport(jwt)
+- mongoose
+- uuid
+- jwt
+- Cors
+- bcrypt
+- morgan
+- bodyparser
+- express
+- port
+- passport(jwt)
 
 ## Endpoints
  
