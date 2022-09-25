@@ -39,6 +39,6 @@ passport(jwt)
 - update user / put method
 - delete user  / delete method
 
- (also refer to the ![alt text](documentation.html)  page for the exact links)
+ also refer to the ![documentation](https://github.com/TBj93/movie_api/blob/master/public/documentation.html)  page for the exact links
 
 
