@@ -9,8 +9,8 @@ The app uses Jwt authentication, as well as password hashing.
 
 
 ## Requirements
--Access to a hosted database on Atlas (mongoDB)
--latest nvm and node version 
+- Access to a hosted database on Atlas (mongoDB)
+- latest nvm and node version 
 
 
 ## Technology used
