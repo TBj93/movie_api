@@ -1,3 +1,8 @@
+/**impoorting JWT
+ *  @constant
+ *  @type {string}
+*/
+
 const jwtSecret = 'your_jwt_secret';  //same key from jstStrategy
 const jwt = require('jsonwebtoken'),
 passport = require('passport');
@@ -13,7 +18,12 @@ let generateJWTToken = (user) => {
 }
 
 
-// post method for user to login
+
+/**post method for user to login
+ * @method Post
+ *  @router
+ *  @type {string}
+*/
 module.exports = (router) => {
     router.post('/login', (req, res) => {
         passport.authenticate('local', { session:false}, (error, user, info) =>{
