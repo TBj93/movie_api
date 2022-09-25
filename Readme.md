@@ -6,7 +6,10 @@ It allows many requests to perform from a client or a pseudo client ( like postm
 Doing so, the user can access different endpoints, for example:  movies, certain movie data, users, user data from the database, as well as add user details ( favorite movies, birthday, etc.) to it, update or delete it.  
 The app uses Jwt authentication, as well as password hashing.
 
+## Challenges I faced
 
+A lot of packages and dependencies are being used there with node.js/ node_modules.
+Although they really help you get the job done and take a lot of work from you, it's difficult sometimes to keep it all together, which is why documentation and comments are so useful.
 
 ## Requirements
 - Access to a hosted database on Atlas (mongoDB)
