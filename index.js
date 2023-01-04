@@ -73,14 +73,14 @@ const { check, validationResult } = require('express-validator');
 
 mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-/*
+
 var mongoDB = 'mongodb+srv://tim7:geilgeil7@cluster0.gbesj.mongodb.net/myFlixDB?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
-*/
-/*
+
+
 var mongoDB = 'mongodb://127.0.0.1/dbmovies';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
-*/
+
 
 /** Get the default connection
 */
